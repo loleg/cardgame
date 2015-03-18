@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Card Game Admin</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>.content {
+        padding-top: 80px;
+    }</style>
+</head>
+
+<body>
+
+{%- block topbar -%}
+    <nav>
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/new/card">Propose a card</a></li>
+            <li role="presentation"><a href="/new/organization">Register your Organization</a></li>
+            <li role="presentation"><a href="#">Register User</a></li>
+        </ul>
+    </nav>
+{%- endblock -%}
+
+<div class="container">
+    <div class="content">
+        {% block page_header %}{% endblock %}
+        {% block content %}{% endblock %}
+    </div>
+</div>
+{% block js_footer %}{% endblock %}
+</body>
+</html>
