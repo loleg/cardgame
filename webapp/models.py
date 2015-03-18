@@ -5,6 +5,8 @@ from flask import url_for
 from webapp import db
 
 
+class Author(db.Document):
+    pass
 class Card(db.Document):
     meta = {'collection': '1940 gestorben'}
 
