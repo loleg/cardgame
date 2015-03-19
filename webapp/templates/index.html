@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <table data-toggle="table" data-url="timeperiod/1940 gestorben" data-cache="false" data-height="500"
+           data-card-view="true"
+           data-response-handler="responseHandler">
+        <thead>
+        <tr>
+            {% for title in titles %}
+                <th data-field="{{ title }}">{{ title }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+    </table>
+{% endblock %}
+
+{% block js_footer %}
+    <script>
+        function responseHandler(res) {
+
+            return res.timeperiod;
+        }
+    </script>
+{% endblock %}

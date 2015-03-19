@@ -6,8 +6,15 @@ from webapp import db
 
 
 class Author(db.Document):
-    pass
-class Card(db.Document):
-    meta = {'collection': '1940 gestorben'}
+    format = db.URLField(db_field='Format')
+    archive = db.URLField(db_field='Archiv')
+    category_author = db.StringField(db_field='Kategorie Autor')
+    name = db.StringField(db_field='Name')
+    died = db.StringField(db_field='Todesdatum')
+    died_in = db.StringField(db_field='Gestorben in')
+    description = db.StringField(db_field='Beschreibung')
+    category_work = db.StringField(db_field='Kategorie Werk')
+    uri = db.URLField(db_field='URI')
+    work = db.StringField(db_field='Werk')
 
 
