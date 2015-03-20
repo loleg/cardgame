@@ -4,20 +4,32 @@
     <meta charset="UTF-8">
     <title></title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.6.0/bootstrap-table.min.css">
+
+
+    <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}"
+          rel="stylesheet"/>
+
+    <link href="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.css') }}"
+          rel="stylesheet"/>
 
 
 </head>
 <body>
 
 {% block content %}{% endblock %}
+<script type="text/javascript"
+        src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='bower_components/jquery-ui/ui/core.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/widget.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/accordion.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.js') }}"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.6.0/bootstrap-table.min.js"></script>
 
-<!-- Latest compiled and minified Locales -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.6.0/locale/bootstrap-table-zh-CN.min.js"></script>
 {% block js_footer %}{% endblock %}
 </body>
 </html>

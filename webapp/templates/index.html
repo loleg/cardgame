@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+
 {% block content %}
+
     <table data-toggle="table" data-url="timeperiod/1940 gestorben" data-cache="false" data-height="500"
            data-card-view="true"
            data-response-handler="responseHandler">
@@ -16,8 +18,9 @@
 {% block js_footer %}
     <script>
         function responseHandler(res) {
-
+            console.log(res.timeperiod);
             return res.timeperiod;
         }
     </script>
+
 {% endblock %}
