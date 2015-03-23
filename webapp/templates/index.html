@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h2 id="basic-events-table" data-zh="基本事件" data-es="Eventos básicos">Basic Events</h2>
+<div class="btn-group">
 
-    <table data-toggle="table" data-url="timeperiod/1940 gestorben" data-cache="false" data-height="500"
-           data-card-view="true"
-           data-response-handler="responseHandler">
+    <button class="btn btn-default" id="hide-loading" data-method="hideLoading">
+        Hide Loading
+    </button>
+    <button class="btn btn-default" id="refresh" data-method="refresh">
+        Refresh
+    </button>
+</div>
+    <table id="authors-table" data-timeperiods="{{ timeperiods }}"  data-toggle="table" >
         <thead>
         <tr>
             {% for title in titles %}
@@ -13,12 +20,32 @@
         </tr>
         </thead>
     </table>
+
 {% endblock %}
 
 {% block js_footer %}
     <script>
+         $(function () {
+        var idx = 0;
+              $.getJSON("timeperiod/"+ $('#authors-table').data('timeperiods')[idx++], function(res) {
+                    $('#authors-table').bootstrapTable('load',res.timeperiod);
+                });
+            $('#basic-events-table').next().click(function () {
+                  $.getJSON("timeperiod/"+ $('#authors-table').data('timeperiods')[idx++], function(res) {
+                    $('#authors-table').bootstrapTable('load',res.timeperiod);
+                });
+
+
+{#            $table = $('#authors-table');#}
+{#                localStorage.timeperiods = $table.data('timeperiods');#}
+                $('#refresh').click(function (data) {
+
+            });
+            });
+        });
         function responseHandler(res) {
-            console.log(res.timeperiod);
+
+
             return res.timeperiod;
         }
     </script>

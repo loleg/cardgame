@@ -14,10 +14,14 @@ exclude_collections = ['system.indexes']
 mongo_to_json = lambda objects: list(map(dumps, objects))
 
 
+def get_collection_names():
+    _db = pymongo_client.cardgame
+    return list(filter(lambda x: x not in exclude_collections, _db.collection_names()))
+
 def get_collection(collection, projection={}):
     _db = pymongo_client.cardgame
     results = None
-    collections = filter(lambda x: x not in exclude_collections, _db.collection_names())
+    collections = get_collection_names()
     if collection is None or collection == 'all':
         results = {}
         for _collection in collections:
@@ -74,7 +78,6 @@ class FormView(AbstractView):
         return self.render_template(dict(form=form(request.form)))
 
 
-
 class TimePeriodView(AbstractView):
     def get_objects(self):
         schema_fields = Author()._db_field_map.values()
@@ -82,7 +85,8 @@ class TimePeriodView(AbstractView):
         return schema_fields
 
     def dispatch_request(self):
-        context = dict(titles=self.get_objects())
+        collections = get_collection_names()
+        context = dict(titles=self.get_objects(), timeperiods=json.dumps(collections), init=collections[0])
         return self.render_template(context)
 
 
