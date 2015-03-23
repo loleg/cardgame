@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2 id="basic-events-table" data-zh="基本事件" data-es="Eventos básicos">Basic Events</h2>
+<h2 id="basic-events-table"></h2>
 <div class="btn-group">
 
     <button class="btn btn-default" id="hide-loading" data-method="hideLoading">
@@ -27,11 +27,13 @@
     <script>
          $(function () {
         var idx = 0;
-              $.getJSON("timeperiod/"+ $('#authors-table').data('timeperiods')[idx++], function(res) {
+              $.getJSON("timeperiod/"+ $('#authors-table').data('timeperiods')[idx], function(res) {
+              $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
                     $('#authors-table').bootstrapTable('load',res.timeperiod);
                 });
             $('#basic-events-table').next().click(function () {
                   $.getJSON("timeperiod/"+ $('#authors-table').data('timeperiods')[idx++], function(res) {
+                  $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
                     $('#authors-table').bootstrapTable('load',res.timeperiod);
                 });
 
