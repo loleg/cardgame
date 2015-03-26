@@ -11,23 +11,32 @@ from webapp.models import Author
 cards_blueprint = Blueprint('cards', __name__, template_folder='templates')
 exclude_collections = ['system.indexes']
 
-mongo_to_json = lambda objects: list(map(dumps, objects))
+
+def mongo_to_dict(object):
+    if '_id' in object:
+        object['_id'] = str(object['_id'])
+    return object
 
 
 def get_collection_names():
     _db = pymongo_client.cardgame
     return list(filter(lambda x: x not in exclude_collections, _db.collection_names()))
 
-def get_collection(collection, projection={}):
+
+def get_collection(collection, projection=None):
     _db = pymongo_client.cardgame
     results = None
     collections = get_collection_names()
+    if projection:
+        find_args = (projection)
+    else:
+        find_args = ()
     if collection is None or collection == 'all':
         results = {}
         for _collection in collections:
-            results[_collection] = _db[_collection].find({}, projection)
+            results[_collection] = _db[_collection].find(*find_args)
     elif collection in collections:
-        results = _db[collection].find({}, projection)
+        results = _db[collection].find(*find_args)
     return results
 
 
@@ -44,14 +53,12 @@ class AuthorAPI(MethodView):
 
 class TimePeriodAPI(MethodView):
     def get(self, period):
-        periods = get_collection(period, dict(_id=False))
+        periods = get_collection(period)
         if periods:
             status = 200
         else:
             status = 404
-        periods = list(periods)
-        print(periods)
-        return dumps(dict(timeperiod=periods)), status
+        return dumps(dict(timeperiod=map(mongo_to_dict, periods))), status
 
 
 class AbstractView(View):
@@ -68,20 +75,20 @@ class AbstractView(View):
         return None
 
 
-class FormView(AbstractView):
+class FormView(MethodView):
     def __init__(self, template, Model):
-        AbstractView.__init__(self, template)
+        self.template = template
         self.Model = Model
 
-    def dispatch_request(self):
+    def post(self):
+        print(request.get_data())
         form = model_form(self.Model)
-        return self.render_template(dict(form=form(request.form)))
+        return render_template(self.template, **dict(form=form(request.form)))
 
 
 class TimePeriodView(AbstractView):
     def get_objects(self):
         schema_fields = Author()._db_field_map.values()
-        Author._fields_ordered
         return schema_fields
 
     def dispatch_request(self):

@@ -1,48 +1,67 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2 id="basic-events-table"></h2>
-<div class="btn-group">
+    {#<div id="author-actions" class="btn-group">#}
+    {##}
+    {#    <button class="btn btn-default" id="hide-loading" data-method="hideLoading">#}
+    {#        Hide Loading#}
+    {#    </button>#}
+    {#    <button class="btn btn-default" id="refresh" data-method="refresh">#}
+    {#        Refresh#}
+    {#    </button>#}
+    {#</div>#}
 
-    <button class="btn btn-default" id="hide-loading" data-method="hideLoading">
-        Hide Loading
-    </button>
-    <button class="btn btn-default" id="refresh" data-method="refresh">
-        Refresh
-    </button>
-</div>
-    <table id="authors-table" data-timeperiods="{{ timeperiods }}"  data-toggle="table" >
+
+    <table id="authors-table" data-timeperiods="{{ timeperiods }}" data-toggle="table">
         <thead>
         <tr>
+            <th data-field="elect_col" data-radio="true"></th>
+            <th data-field="_id">id</th>
             {% for title in titles %}
                 <th data-field="{{ title }}">{{ title }}</th>
             {% endfor %}
         </tr>
         </thead>
     </table>
-
+    <div id="dialog" title="Basic dialog">
+        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved,
+            resized and closed with the 'x' icon.</p>
+    </div>
 {% endblock %}
 
 {% block js_footer %}
     <script>
-         $(function () {
-        var idx = 0;
-              $.getJSON("timeperiod/"+ $('#authors-table').data('timeperiods')[idx], function(res) {
-              $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
-                    $('#authors-table').bootstrapTable('load',res.timeperiod);
-                });
-            $('#basic-events-table').next().click(function () {
-                  $.getJSON("timeperiod/"+ $('#authors-table').data('timeperiods')[idx++], function(res) {
-                  $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
-                    $('#authors-table').bootstrapTable('load',res.timeperiod);
+        $(function () {
+
+            {#            $('#authors-table').on('click', function (event) {#}
+            {#                console.log(event);#}
+            {#            });#}
+            $('#authors-table').bootstrapTable({}).on('check.bs.table', function (e, row) {
+                console.log(JSON.stringify(row));
+                $(this).load('author_form', ['hello world'], function (data) {
+                    console.log('done');
+                }, 'xml');
+                console.log(row);
+
+                $("#dialog").dialog();
+            });
+            var idx = 0;
+            $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[idx], function (res) {
+                $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
+                $('#authors-table').bootstrapTable('load', res.timeperiod);
+            });
+            $('#author-actions').click(function () {
+                $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[idx++], function (res) {
+                    $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
+                    $('#authors-table').bootstrapTable('load', res.timeperiod);
                 });
 
 
-{#            $table = $('#authors-table');#}
-{#                localStorage.timeperiods = $table.data('timeperiods');#}
+                {#            $table = $('#authors-table');#}
+                {#                localStorage.timeperiods = $table.data('timeperiods');#}
                 $('#refresh').click(function (data) {
 
-            });
+                });
             });
         });
         function responseHandler(res) {
