@@ -32,20 +32,25 @@
 {% block js_footer %}
     <script>
         $(function () {
-
+            var idx = 0;
             {#            $('#authors-table').on('click', function (event) {#}
             {#                console.log(event);#}
             {#            });#}
-            $('#authors-table').bootstrapTable({}).on('check.bs.table', function (e, row) {
-                console.log(JSON.stringify(row));
-                $(this).load('author_form', ['hello world'], function (data) {
-                    console.log('done');
-                }, 'xml');
-                console.log(row);
+            $('#authors-table').editableTableWidget();
+            {#            $('#authors-table').bootstrapTable({}).on('check.bs.table', function (e, row) {#}
+            {#                console.log(row);#}
+            {#                var timeperiod = $('#authors-table').data('timeperiods')[idx];#}
+            {##}
+            {#                var author_form = 'author_form';#}
+            {##}
+            {#                $(this).load(encodeURI(author_form), function (data) {#}
+            {#                    console.log('done');#}
+            {#                }, 'html');#}
+            {#                console.log(row);#}
+            {##}
+            {#                $("#dialog").dialog();#}
+            {#            });#}
 
-                $("#dialog").dialog();
-            });
-            var idx = 0;
             $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[idx], function (res) {
                 $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
                 $('#authors-table').bootstrapTable('load', res.timeperiod);

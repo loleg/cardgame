@@ -4,9 +4,12 @@ from flask import Blueprint, jsonify, render_template, redirect, request
 from flask.views import MethodView, View
 from bson.json_util import dumps, ObjectId, json
 from flask.ext.mongoengine.wtf import model_form
+from mongoengine.context_managers import switch_collection
+
 
 from webapp import pymongo_client, DB_NAME
 from webapp.models import Author
+import webapp.models
 
 cards_blueprint = Blueprint('cards', __name__, template_folder='templates')
 exclude_collections = ['system.indexes']
@@ -76,13 +79,16 @@ class AbstractView(View):
 
 
 class FormView(MethodView):
-    def __init__(self, template, Model):
+    def __init__(self, template):
         self.template = template
-        self.Model = Model
 
-    def post(self):
-        print(request.get_data())
-        form = model_form(self.Model)
+    def get(self):  # , timeperiod, author_id):
+        # from webapp.models import Author
+        # author = None
+        # with switch_collection(Author, timeperiod) as Author:
+        #     author = Author.objects(id=author_id).first()
+        #     print(dir(author))
+        form = model_form(Author)
         return render_template(self.template, **dict(form=form(request.form)))
 
 
@@ -100,8 +106,8 @@ class TimePeriodView(AbstractView):
 period_api = TimePeriodAPI.as_view('timeperiod')
 author_api = AuthorAPI.as_view('author')
 
-cards_blueprint.add_url_rule('/author_form',
-                             view_func=FormView.as_view('form', template='author_form.html', Model=Author))
+cards_blueprint.add_url_rule('/author_form/',
+                             view_func=FormView.as_view('form', template='author_form.html'))
 cards_blueprint.add_url_rule('/', view_func=TimePeriodView.as_view('index', template='index.html'))
 cards_blueprint.add_url_rule('/timeperiod/<period>/', view_func=period_api)
 cards_blueprint.add_url_rule('/author/<timeperiod>/<id>/', view_func=author_api)
