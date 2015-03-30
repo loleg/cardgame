@@ -5,18 +5,12 @@
     <table id="authors-table" data-timeperiods="{{ timeperiods }}" data-toggle="table">
         <thead>
         <tr>
-            {#            <th data-field="elect_col" data-radio="true"></th>#}
-            {#            <th data-field="_id">id</th>#}
             {% for title in titles %}
                 <th data-field="{{ title }}">{{ title }}</th>
             {% endfor %}
         </tr>
         </thead>
     </table>
-    <div id="dialog" title="Basic dialog">
-        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved,
-            resized and closed with the 'x' icon.</p>
-    </div>
 {% endblock %}
 
 {% block js_footer %}
@@ -43,12 +37,7 @@
             });
 
         }
-        function headerClick(e) {
-            console.log(e);
-            $(e.currentTarget).css({
-                color: "red"
-            });
-        }
+
         function make_cells_editable(table) {
             console.log($(table));
             console.log($(table).data('index'));
@@ -56,8 +45,6 @@
             for (var tr_idx = 0; tr_idx < tr_elements.length; tr_idx++) {
                 var tr_element = tr_elements[tr_idx];
                 var td_elements = $(tr_element).children();
-
-
                 var primary_key = tr_element.id;
                 var cell = null;
                 var cell_text = null;
@@ -68,10 +55,7 @@
                     if (typeof(cell.innerHTML) === 'string') {
                         cell_text = cell.innerHTML;
                         $(cell).empty();
-                        {#                        $(cell).focusout(function() {#}
-                        {#                            ;#}
-                        {#                        });#}
-                        {#                        $(cell).addClass('editme');#}
+
                         $(cell).append('<a href="#"  data-type="text" data-pk="' + primary_key + '" data-url="/post" data-title="Enter username">' + cell_text + '</a>');
                     }
                     if (cell.contentEditable != null) {
@@ -83,6 +67,7 @@
         function responseHandler(res) {
             return res.timeperiod;
         }
+
 
         $(function () {
             var timeperiod_idx = 0;
@@ -106,7 +91,6 @@
                     });
                 });
             });
-
         });
     </script>
 
