@@ -1,22 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {#<div id="author-actions" class="btn-group">#}
-    {##}
-    {#    <button class="btn btn-default" id="hide-loading" data-method="hideLoading">#}
-    {#        Hide Loading#}
-    {#    </button>#}
-    {#    <button class="btn btn-default" id="refresh" data-method="refresh">#}
-    {#        Refresh#}
-    {#    </button>#}
-    {#</div>#}
-
 
     <table id="authors-table" data-timeperiods="{{ timeperiods }}" data-toggle="table">
         <thead>
         <tr>
-            <th data-field="elect_col" data-radio="true"></th>
-            <th data-field="_id">id</th>
+            {#            <th data-field="elect_col" data-radio="true"></th>#}
+            {#            <th data-field="_id">id</th>#}
             {% for title in titles %}
                 <th data-field="{{ title }}">{{ title }}</th>
             {% endfor %}
@@ -31,49 +21,93 @@
 
 {% block js_footer %}
     <script>
-        $(function () {
-            var idx = 0;
-            {#            $('#authors-table').on('click', function (event) {#}
-            {#                console.log(event);#}
-            {#            });#}
+        function make_table_editable() {
             $('#authors-table').editableTableWidget();
-            {#            $('#authors-table').bootstrapTable({}).on('check.bs.table', function (e, row) {#}
-            {#                console.log(row);#}
-            {#                var timeperiod = $('#authors-table').data('timeperiods')[idx];#}
-            {##}
-            {#                var author_form = 'author_form';#}
-            {##}
-            {#                $(this).load(encodeURI(author_form), function (data) {#}
-            {#                    console.log('done');#}
-            {#                }, 'html');#}
-            {#                console.log(row);#}
-            {##}
-            {#                $("#dialog").dialog();#}
-            {#            });#}
-
-            $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[idx], function (res) {
-                $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
-                $('#authors-table').bootstrapTable('load', res.timeperiod);
+            $('#authors-table').editableTableWidget({
+                cloneProperties: ['background', 'border', 'outline']
             });
-            $('#author-actions').click(function () {
-                $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[idx++], function (res) {
-                    $('#basic-events-table').text($('#authors-table').data('timeperiods')[idx]);
-                    $('#authors-table').bootstrapTable('load', res.timeperiod);
-                });
+            $('#authors-table td').on('change', function (evt, newValue) {
+                var idx = evt.currentTarget.cellIndex;
+                console.log(evt);
+                var properties = JSON.parse(localStorage.getItem('properties'));
+                var data = [properties[idx], newValue];
 
-
-                {#            $table = $('#authors-table');#}
-                {#                localStorage.timeperiods = $table.data('timeperiods');#}
-                $('#refresh').click(function (data) {
-
+                var timeperiod = localStorage.getItem('timeperiod');
+                var author_id = evt.target.parentNode.id;
+                $.ajax({
+                    method: 'PUT',
+                    url: timeperiod + '/' + author_id,
+                    data: JSON.stringify(data),
+                    dataType: 'json'
                 });
             });
-        });
+
+        }
+        function headerClick(e) {
+            console.log(e);
+            $(e.currentTarget).css({
+                color: "red"
+            });
+        }
+        function make_cells_editable(table) {
+            console.log($(table));
+            console.log($(table).data('index'));
+            var tr_elements = $(table).find('tr');
+            for (var tr_idx = 0; tr_idx < tr_elements.length; tr_idx++) {
+                var tr_element = tr_elements[tr_idx];
+                var td_elements = $(tr_element).children();
+
+
+                var primary_key = tr_element.id;
+                var cell = null;
+                var cell_text = null;
+
+                for (var i = 0; i < td_elements.length; i++) {
+                    cell = td_elements[i];
+
+                    if (typeof(cell.innerHTML) === 'string') {
+                        cell_text = cell.innerHTML;
+                        $(cell).empty();
+                        {#                        $(cell).focusout(function() {#}
+                        {#                            ;#}
+                        {#                        });#}
+                        {#                        $(cell).addClass('editme');#}
+                        $(cell).append('<a href="#"  data-type="text" data-pk="' + primary_key + '" data-url="/post" data-title="Enter username">' + cell_text + '</a>');
+                    }
+                    if (cell.contentEditable != null) {
+                        $(cell).attr("contentEditable", true);
+                    }
+                }
+            }
+        }
         function responseHandler(res) {
-
-
             return res.timeperiod;
         }
+
+        $(function () {
+            var timeperiod_idx = 0;
+
+            $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[timeperiod_idx], function (res) {
+                console.log(res.properties);
+                $('#basic-events-table').text($('#authors-table').data('timeperiods')[timeperiod_idx]);
+                $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
+                    localStorage.setItem('properties', JSON.stringify(res.properties));
+                    localStorage.setItem('timeperiod', $('#authors-table').data('timeperiods')[timeperiod_idx]);
+                    make_table_editable();
+                });
+            });
+            $('#author-actions').click(function () {
+                $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[timeperiod_idx++], function (res) {
+                    $('#basic-events-table').text($('#authors-table').data('timeperiods')[timeperiod_idx]);
+                    $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
+                        localStorage.setItem('properties', JSON.stringify(res.properties));
+                        localStorage.setItem('timeperiod', $('#authors-table').data('timeperiods')[timeperiod_idx]);
+                        make_table_editable();
+                    });
+                });
+            });
+
+        });
     </script>
 
 {% endblock %}

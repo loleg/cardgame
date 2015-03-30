@@ -50,8 +50,14 @@ class AuthorAPI(MethodView):
         author = collection.find_one(dict(_id=_id), dict(_id=False))
         return dumps(author)
 
-    def post(self, period):
-        pass
+    def put(self, timeperiod, id):
+        property_value = request.get_data()
+        property, value = json.loads(property_value.decode())
+        collection = pymongo_client[DB_NAME][timeperiod]
+        _id = ObjectId(id)
+        author = collection.find_one(dict(_id=_id))
+        author[property] = value
+        collection.update({u'_id': _id}, {"$set": author}, upsert=False)
 
 
 class TimePeriodAPI(MethodView):
@@ -61,7 +67,8 @@ class TimePeriodAPI(MethodView):
             status = 200
         else:
             status = 404
-        return dumps(dict(timeperiod=map(mongo_to_dict, periods))), status
+        properties = Author()._db_field_map.values()
+        return dumps(dict(timeperiod=map(mongo_to_dict, periods), properties=list(properties))), status
 
 
 class AbstractView(View):
@@ -83,11 +90,6 @@ class FormView(MethodView):
         self.template = template
 
     def get(self):  # , timeperiod, author_id):
-        # from webapp.models import Author
-        # author = None
-        # with switch_collection(Author, timeperiod) as Author:
-        #     author = Author.objects(id=author_id).first()
-        #     print(dir(author))
         form = model_form(Author)
         return render_template(self.template, **dict(form=form(request.form)))
 
@@ -95,7 +97,7 @@ class FormView(MethodView):
 class TimePeriodView(AbstractView):
     def get_objects(self):
         schema_fields = Author()._db_field_map.values()
-        return schema_fields
+        return list(schema_fields)
 
     def dispatch_request(self):
         collections = get_collection_names()
@@ -110,4 +112,4 @@ cards_blueprint.add_url_rule('/author_form/',
                              view_func=FormView.as_view('form', template='author_form.html'))
 cards_blueprint.add_url_rule('/', view_func=TimePeriodView.as_view('index', template='index.html'))
 cards_blueprint.add_url_rule('/timeperiod/<period>/', view_func=period_api)
-cards_blueprint.add_url_rule('/author/<timeperiod>/<id>/', view_func=author_api)
+cards_blueprint.add_url_rule('/<timeperiod>/<id>/', view_func=author_api)

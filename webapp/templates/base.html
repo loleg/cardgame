@@ -5,13 +5,20 @@
     <title></title>
     <!-- Latest compiled and minified CSS -->
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
     <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}"
           rel="stylesheet"/>
 
     <link href="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.css') }}"
           rel="stylesheet"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link href="{{ url_for('static', filename='bower_components/bootstrap-editable/libs/bootstrap/css/bootstrap.min.css') }}"
+          rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='bower_components/bootstrap-editable/libs/bootstrap/css/bootstrap-responsive.min.css') }}"
+          rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='bower_components/bootstrap-editable/src/css/bootstrap-editable.css') }}"
+          rel="stylesheet"/>
+
 
 </head>
 <body>
@@ -41,13 +48,21 @@
         src="{{ url_for('static', filename='bower_components/jquery-ui/ui/widget.js') }}"></script>
 <script type="text/javascript"
         src="{{ url_for('static', filename='bower_components/jquery-ui/ui/accordion.js') }}"></script>
+{#<script type="text/javascript"#}
+{#        src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>#}
 <script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        src="{{ url_for('static', filename='bower_components/bootstrap-editable/libs/bootstrap/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript"
         src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='bower_components/bootstrap-editable/src/js/bootstrap-editable.js') }}"></script>
 
 <script type="text/javascript"
         src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/mindmup-editabletable.js') }}"></script>
+
+
 {% block js_footer %}{% endblock %}
 </body>
 </html>
