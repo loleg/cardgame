@@ -16,16 +16,12 @@
 {% block js_footer %}
     <script>
         function make_table_editable() {
-            $('#authors-table').editableTableWidget();
-            $('#authors-table').editableTableWidget({
-                cloneProperties: ['background', 'border', 'outline']
-            });
+
+
             $('#authors-table td').on('change', function (evt, newValue) {
                 var idx = evt.currentTarget.cellIndex;
-                console.log(evt);
                 var properties = JSON.parse(localStorage.getItem('properties'));
                 var data = [properties[idx], newValue];
-
                 var timeperiod = localStorage.getItem('timeperiod');
                 var author_id = evt.target.parentNode.id;
                 $.ajax({
@@ -35,7 +31,6 @@
                     dataType: 'json'
                 });
             });
-
         }
 
         function responseHandler(res) {
@@ -44,6 +39,12 @@
 
         $(function () {
             var timeperiod_idx = 0;
+
+            $('#authors-table').editableTableWidget();
+
+            $('#authors-table').editableTableWidget({
+                cloneProperties: ['background', 'border', 'outline']
+            });
 
             function update_navigation() {
                 var timeperiods = $('#authors-table').data('timeperiods');
@@ -62,6 +63,7 @@
                     make_table_editable();
                 });
             });
+
             $('#timeperiod_navigation').click(function (e) {
                 var timeperiods = $('#authors-table').data('timeperiods');
                 if (e.target.id === 'next') {
@@ -70,6 +72,7 @@
                 if (e.target.id === 'previous') {
                     timeperiod_idx = (((timeperiod_idx - 1) % timeperiods.length) + timeperiods.length) % timeperiods.length;
                 }
+
                 $.getJSON("timeperiod/" + timeperiods[timeperiod_idx], function (res) {
                     update_navigation();
                     $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
