@@ -1,4 +1,4 @@
-#!/Users/joelvogt/PyCharmProjects/citizenscience.coop/flask/bin/python
+
 
 import os, sys
 
