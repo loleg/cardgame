@@ -38,36 +38,9 @@
 
         }
 
-        function make_cells_editable(table) {
-            console.log($(table));
-            console.log($(table).data('index'));
-            var tr_elements = $(table).find('tr');
-            for (var tr_idx = 0; tr_idx < tr_elements.length; tr_idx++) {
-                var tr_element = tr_elements[tr_idx];
-                var td_elements = $(tr_element).children();
-                var primary_key = tr_element.id;
-                var cell = null;
-                var cell_text = null;
-
-                for (var i = 0; i < td_elements.length; i++) {
-                    cell = td_elements[i];
-
-                    if (typeof(cell.innerHTML) === 'string') {
-                        cell_text = cell.innerHTML;
-                        $(cell).empty();
-
-                        $(cell).append('<a href="#"  data-type="text" data-pk="' + primary_key + '" data-url="/post" data-title="Enter username">' + cell_text + '</a>');
-                    }
-                    if (cell.contentEditable != null) {
-                        $(cell).attr("contentEditable", true);
-                    }
-                }
-            }
-        }
         function responseHandler(res) {
             return res.timeperiod;
         }
-
 
         $(function () {
             var timeperiod_idx = 0;
@@ -81,16 +54,12 @@
                 $('#next').text($('#authors-table').data('timeperiods')[next_idx]);
             }
 
-            $('#current').on('click', function () {
-                alert('next');
-            });
             $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[timeperiod_idx], function (res) {
                 update_navigation();
                 $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
                     localStorage.setItem('properties', JSON.stringify(res.properties));
                     localStorage.setItem('timeperiod', $('#authors-table').data('timeperiods')[timeperiod_idx]);
-
-                    {#                    make_table_editable();#}
+                    make_table_editable();
                 });
             });
             $('#timeperiod_navigation').click(function (e) {

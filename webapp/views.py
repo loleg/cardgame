@@ -58,6 +58,7 @@ class AuthorAPI(MethodView):
         author = collection.find_one(dict(_id=_id))
         author[property] = value
         collection.update({u'_id': _id}, {"$set": author}, upsert=False)
+        return dumps(author)
 
 
 class TimePeriodAPI(MethodView):
