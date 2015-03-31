@@ -16,8 +16,11 @@
 {% block js_footer %}
     <script>
         function make_table_editable() {
+            $('#authors-table').editableTableWidget();
 
-
+            $('#authors-table').editableTableWidget({
+                cloneProperties: ['background', 'border', 'outline']
+            });
             $('#authors-table td').on('change', function (evt, newValue) {
                 var idx = evt.currentTarget.cellIndex;
                 var properties = JSON.parse(localStorage.getItem('properties'));
@@ -40,11 +43,6 @@
         $(function () {
             var timeperiod_idx = 0;
 
-            $('#authors-table').editableTableWidget();
-
-            $('#authors-table').editableTableWidget({
-                cloneProperties: ['background', 'border', 'outline']
-            });
 
             function update_navigation() {
                 var timeperiods = $('#authors-table').data('timeperiods');
