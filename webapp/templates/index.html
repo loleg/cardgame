@@ -72,18 +72,37 @@
         $(function () {
             var timeperiod_idx = 0;
 
+            function update_navigation() {
+                var timeperiods = $('#authors-table').data('timeperiods');
+                var previous_idx = (((timeperiod_idx - 1) % timeperiods.length) + timeperiods.length) % timeperiods.length;
+                var next_idx = (timeperiod_idx + 1) % timeperiods.length;
+                $('#previous').text($('#authors-table').data('timeperiods')[previous_idx]);
+                $('#current').text($('#authors-table').data('timeperiods')[timeperiod_idx]);
+                $('#next').text($('#authors-table').data('timeperiods')[next_idx]);
+            }
+
+            $('#current').on('click', function () {
+                alert('next');
+            });
             $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[timeperiod_idx], function (res) {
-                console.log(res.properties);
-                $('#basic-events-table').text($('#authors-table').data('timeperiods')[timeperiod_idx]);
+                update_navigation();
                 $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
                     localStorage.setItem('properties', JSON.stringify(res.properties));
                     localStorage.setItem('timeperiod', $('#authors-table').data('timeperiods')[timeperiod_idx]);
-                    make_table_editable();
+
+                    {#                    make_table_editable();#}
                 });
             });
-            $('#author-actions').click(function () {
-                $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[timeperiod_idx++], function (res) {
-                    $('#basic-events-table').text($('#authors-table').data('timeperiods')[timeperiod_idx]);
+            $('#timeperiod_navigation').click(function (e) {
+                var timeperiods = $('#authors-table').data('timeperiods');
+                if (e.target.id === 'next') {
+                    timeperiod_idx = (timeperiod_idx + 1) % timeperiods.length;
+                }
+                if (e.target.id === 'previous') {
+                    timeperiod_idx = (((timeperiod_idx - 1) % timeperiods.length) + timeperiods.length) % timeperiods.length;
+                }
+                $.getJSON("timeperiod/" + timeperiods[timeperiod_idx], function (res) {
+                    update_navigation();
                     $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
                         localStorage.setItem('properties', JSON.stringify(res.properties));
                         localStorage.setItem('timeperiod', $('#authors-table').data('timeperiods')[timeperiod_idx]);

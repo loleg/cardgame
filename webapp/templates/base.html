@@ -22,19 +22,33 @@
 
 </head>
 <body>
-<h2 id="basic-events-table"></h2>
-<div class="col-md-1">
-    <div id="author-actions" class="btn-group">
 
-
-        <button class="btn btn-default" id="previous" data-method="previous">
-            previous
-        </button>
-        <button class="btn btn-default" id="next" data-method="next">
-            next
-        </button>
+<div id="timeperiod_navigation" class="btn-group btn-group-justified" role="group" aria-label="foo">
+    <div class="btn-group" role="group">
+        <button id="previous" type="button" class="btn btn-default">Left</button>
+    </div>
+    <div class="btn-group" role="group">
+        <button id="current" type="button" class="btn btn-default">Middle</button>
+    </div>
+    <div class="btn-group" role="group">
+        <button id='next' type="button" class="btn btn-default">Right</button>
     </div>
 </div>
+
+
+{#<h2 id="basic-events-table"></h2>#}
+{#<div class="col-md-1">#}
+{#    <div id="author-actions" class="btn-group">#}
+{##}
+{##}
+{#        <button class="btn btn-default" id="previous" data-method="previous">#}
+{#            previous#}
+{#        </button>#}
+{#        <button class="btn btn-default" id="next" data-method="next">#}
+{#            next#}
+{#        </button>#}
+{#    </div>#}
+{#</div>#}
 <div class="col-md-11">
 
     {% block content %}{% endblock %}
