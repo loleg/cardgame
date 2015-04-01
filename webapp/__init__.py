@@ -15,7 +15,7 @@ app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
 db = MongoEngine(app)
 
-pymongo_client = MongoClient()
+pymongo_client = MongoClient(host=HOST)
 
 
 def register_blueprints(app):
