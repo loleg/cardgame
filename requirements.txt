@@ -7,6 +7,7 @@ WTForms==2.0.2
 Werkzeug==0.10.4
 flask-heroku-mongoengine==0.1.5
 flask-mongoengine==0.7.1
+gunicorn==19.3.0
 itsdangerous==0.24
 mongoengine==0.9.0
 pymongo==2.8
