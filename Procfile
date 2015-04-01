@@ -1,1 +1,1 @@
-web: python main.py --log-file -
+web: venv/bin/python main.py startserver
