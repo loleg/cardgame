@@ -8,7 +8,7 @@ from pymongo import MongoClient
 DB_NAME = 'publicdomaingame'
 HOST = 'mongodb://pdg:003dJFNsPbMiqkH@ds039211.mongolab.com:39211/publicdomaingame'
 app = Flask(__name__)
-app.config["MONGODB_SETTINGS"] = {'DB': DB_NAME, 'host': HOST}
+app.config["MONGODB_SETTINGS"] = {'host': HOST}
 app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
 db = MongoEngine(app)
