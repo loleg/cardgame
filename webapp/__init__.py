@@ -5,7 +5,7 @@ from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from pymongo import MongoClient
 
-DB_NAME = 'cardgame'
+DB_NAME = 'publicdomaingame'
 app = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {'DB': DB_NAME}
 app.config["SECRET_KEY"] = "KeepThisS3cr3t"
