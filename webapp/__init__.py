@@ -4,9 +4,11 @@ __author__ = u'Joël Vogt'
 from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from pymongo import MongoClient
+import os
 
 DB_NAME = 'publicdomaingame'
-HOST = 'mongodb://pdg:003dJFNsPbMiqkH@ds039211.mongolab.com:39211/publicdomaingame'
+HOST = os.environ['PROD_MONGODB']
+print('DEBUG %s' % HOST)
 app = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {'host': HOST}
 app.config["SECRET_KEY"] = "KeepThisS3cr3t"
