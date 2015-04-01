@@ -1,1 +1,1 @@
-web: venv/bin/python main.py startserver
+web: venv/bin/python main.py runserver
