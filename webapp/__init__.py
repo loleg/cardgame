@@ -7,7 +7,7 @@ from pymongo import MongoClient
 import os
 
 DB_NAME = 'publicdomaingame'
-HOST = os.environ['PROD_MONGODB']
+HOST = os.environ['MONGOLAB_URI']
 
 app = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {'host': HOST}
