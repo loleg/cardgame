@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="576f7437-5e12-4f72-8e7a-df8e2d353376" name="Default" comment="Refreshing table with time periods">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/templates/base.html" afterPath="$PROJECT_DIR$/webapp/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/templates/index.html" afterPath="$PROJECT_DIR$/webapp/templates/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cardgame.iws" />
@@ -33,20 +32,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webapp/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.4583333" vertical-offset="1" max-vertical-offset="1410">
-              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.18789808" vertical-offset="1" max-vertical-offset="1410">
+              <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapp/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6687898" vertical-offset="375" max-vertical-offset="870">
+            <state vertical-scroll-proportion="-16.875" vertical-offset="180" max-vertical-offset="870">
               <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding />
             </state>
@@ -130,8 +129,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/webapp/views.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/webapp/templates/index.html" />
         <option value="$PROJECT_DIR$/webapp/templates/base.html" />
+        <option value="$PROJECT_DIR$/webapp/templates/index.html" />
       </list>
     </option>
   </component>
@@ -613,12 +612,6 @@
       <option name="number" value="Default" />
       <updated>1426331092832</updated>
     </task>
-    <task id="LOCAL-00005" summary="Refreshing table with time periods">
-      <created>1427152656980</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1427152656980</updated>
-    </task>
     <task id="LOCAL-00006" summary="Refreshing table with time periods">
       <created>1427152874229</created>
       <option name="number" value="00006" />
@@ -907,7 +900,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428188225458</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Refreshing table with time periods">
+      <created>1428190363284</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1428190363285</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1343,18 +1342,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/webapp/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.4583333" vertical-offset="1" max-vertical-offset="1410">
-          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+        <state vertical-scroll-proportion="-16.875" vertical-offset="180" max-vertical-offset="870">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/templates/base.html">
+    <entry file="file://$PROJECT_DIR$/webapp/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6687898" vertical-offset="375" max-vertical-offset="870">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.18789808" vertical-offset="1" max-vertical-offset="1410">
+          <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
           <folding />
         </state>
       </provider>
