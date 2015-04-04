@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="576f7437-5e12-4f72-8e7a-df8e2d353376" name="Default" comment="Refreshing table with time periods">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/templates/base.html" afterPath="$PROJECT_DIR$/webapp/templates/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cardgame.iws" />
@@ -45,8 +44,8 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webapp/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.9463722" vertical-offset="525" max-vertical-offset="1350">
-              <caret line="15" column="131" selection-start-line="15" selection-start-column="131" selection-end-line="15" selection-end-column="131" />
+            <state vertical-scroll-proportion="-0.9463722" vertical-offset="540" max-vertical-offset="1380">
+              <caret line="16" column="118" selection-start-line="16" selection-start-column="118" selection-end-line="16" selection-end-column="118" />
               <folding />
             </state>
           </provider>
@@ -612,12 +611,6 @@
       <option name="number" value="Default" />
       <updated>1426331092832</updated>
     </task>
-    <task id="LOCAL-00002" summary="Hello World">
-      <created>1426669053270</created>
-      <option name="number" value="00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1426669053270</updated>
-    </task>
     <task id="LOCAL-00003" summary="Hello World">
       <created>1426799394180</created>
       <option name="number" value="00003" />
@@ -906,7 +899,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428186354982</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Refreshing table with time periods">
+      <created>1428186661508</created>
+      <option name="number" value="00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1428186661508</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1352,8 +1351,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webapp/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.9463722" vertical-offset="525" max-vertical-offset="1350">
-          <caret line="15" column="131" selection-start-line="15" selection-start-column="131" selection-end-line="15" selection-end-column="131" />
+        <state vertical-scroll-proportion="-0.9463722" vertical-offset="540" max-vertical-offset="1380">
+          <caret line="16" column="118" selection-start-line="16" selection-start-column="118" selection-end-line="16" selection-end-column="118" />
           <folding />
         </state>
       </provider>
