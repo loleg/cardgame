@@ -22,12 +22,12 @@ def mongo_to_dict(object):
 
 
 def get_collection_names():
-    _db = pymongo_client.cardgame
+    _db = pymongo_client[DB_NAME]
     return list(filter(lambda x: x not in exclude_collections, _db.collection_names()))
 
 
 def get_collection(collection, projection=None):
-    _db = pymongo_client.cardgame
+    _db = pymongo_client[DB_NAME]
     results = None
     collections = get_collection_names()
     if projection:
