@@ -56,7 +56,9 @@
             $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[timeperiod_idx], function (res) {
 
                 update_navigation();
-                $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
+                $('#authors-table')
+                        .bootstrapTable('load', res.timeperiod)
+                        .after(function () {
                     localStorage.setItem('properties', JSON.stringify(res.properties));
                     localStorage.setItem('timeperiod', $('#authors-table').data('timeperiods')[timeperiod_idx]);
                     make_table_editable();
