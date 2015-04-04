@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="576f7437-5e12-4f72-8e7a-df8e2d353376" name="Default" comment="Refreshing table with time periods">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/templates/base.html" afterPath="$PROJECT_DIR$/webapp/templates/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cardgame.iws" />
@@ -44,8 +45,8 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webapp/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.2839117" vertical-offset="718" max-vertical-offset="1275">
-              <caret line="75" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.14826499" vertical-offset="163" max-vertical-offset="1320">
+              <caret line="14" column="117" selection-start-line="14" selection-start-column="117" selection-end-line="14" selection-end-column="117" />
               <folding />
             </state>
           </provider>
@@ -899,7 +900,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428185788163</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Refreshing table with time periods">
+      <created>1428185934947</created>
+      <option name="number" value="00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1428185934947</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1345,8 +1352,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webapp/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2839117" vertical-offset="718" max-vertical-offset="1275">
-          <caret line="75" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.14826499" vertical-offset="163" max-vertical-offset="1320">
+          <caret line="14" column="117" selection-start-line="14" selection-start-column="117" selection-end-line="14" selection-end-column="117" />
           <folding />
         </state>
       </provider>
