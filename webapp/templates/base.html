@@ -5,12 +5,17 @@
     <title></title>
     <!-- Latest compiled and minified CSS -->
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
     {#    <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}"#}
     {#          rel="stylesheet"/>#}
+
 
     <link href="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.css') }}"
           rel="stylesheet"/>
@@ -41,29 +46,33 @@
 
     {% block content %}{% endblock %}
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {#<script type="text/javascript"#}
 {#        src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.js') }}"></script>#}
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 {#<script type="text/javascript"#}
 {#        src="{{ url_for('static', filename='bower_components/jquery-ui/jquery-ui.min.js') }}"></script>#}
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/widget.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/accordion.js') }}"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.js">
+{#<script type="text/javascript"#}
+{#        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/widget.js') }}"></script>#}
+{#<script type="text/javascript"#}
+{#        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/accordion.js') }}"></script>#}
 {#<script type="text/javascript"#}
 {#        src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>#}
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/bootstrap-editable/libs/bootstrap/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/bootstrap-editable/src/js/bootstrap-editable.js') }}"></script>
-
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js') }}"></script>
-
-<script type="text/javascript" src="{{ url_for('static', filename='js/mindmup-editabletable.js') }}"></script>
+{#<script type="text/javascript"#}
+{#        src="{{ url_for('static', filename='bower_components/bootstrap-editable/libs/bootstrap/js/bootstrap.min.js') }}"></script>#}
+{#<script type="text/javascript"#}
+{#        src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.js') }}"></script>#}
+{#<script type="text/javascript"#}
+{#        src="{{ url_for('static', filename='bower_components/bootstrap-editable/src/js/bootstrap-editable.js') }}"></script>#}
+{##}
+{#<script type="text/javascript"#}
+{#        src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js') }}"></script>#}
+{##}
+{#<script type="text/javascript" src="{{ url_for('static', filename='js/mindmup-editabletable.js') }}"></script>#}
 
 
 {% block js_footer %}{% endblock %}
