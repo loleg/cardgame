@@ -26,7 +26,7 @@
                 col_idx = properties.indexOf(column);
                 if (col_idx >= 0) {
                     cell_value = row[column];
-                    if (cell_value != null)
+                    if (cell_value != null) // will be used by format_table
                         window.columns_width[col_idx].push(cell_value.toString().length);
                     else
                         window.columns_width[col_idx].push(0);
@@ -42,11 +42,16 @@
                 if (column_widths.length > 0) {
                     column_widths.sort();
                     width = math.median(column_widths);
-                    $('tr td:nth-child(' + col_idx + ')').width(width);
+                    if (width > 0) {
+                        $('tr th:nth-child(' + col_idx + ')').width(width);
+                        $('tr td:nth-child(' + col_idx + ')').width(width);
+                    }
                 }
             }
         }
         $(function () {
+            var timeperiod_idx = 0;
+
             function make_table_editable() {
                 $('#authors-table').editableTableWidget();
                 $('#authors-table').editableTableWidget({
@@ -67,14 +72,11 @@
                 });
             }
 
-
-            var timeperiod_idx = 0;
-
             function populate_table(res) {
                 var properties = JSON.parse(localStorage.getItem('properties'));
-                columns_width = [];
+                window.columns_width = [];
                 for (p_idx in properties)
-                    columns_width[p_idx] = [];
+                    window.columns_width[p_idx] = [];
 
                 $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
                     localStorage.setItem('properties', JSON.stringify(res.properties));
@@ -92,12 +94,14 @@
                 $('#next').text($('#authors-table').data('timeperiods')[next_idx]);
             }
 
-            $.getJSON("timeperiod/" + $('#authors-table').data('timeperiods')[timeperiod_idx], function (res) {
+            function load_authors_in_timeperiod(timeperiod) {
+                $.getJSON("timeperiod/" + timeperiod, function (res) {
+                    update_navigation();
+                    populate_table(res);
+                });
+            }
 
-                update_navigation();
-                populate_table(res);
-            }).done(format_table);
-
+            load_authors_in_timeperiod($('#authors-table').data('timeperiods')[timeperiod_idx]);
 
             $('#timeperiod_navigation').click(function (e) {
                 var timeperiods = $('#authors-table').data('timeperiods');
@@ -107,11 +111,7 @@
                 if (e.target.id === 'previous') {
                     timeperiod_idx = (((timeperiod_idx - 1) % timeperiods.length) + timeperiods.length) % timeperiods.length;
                 }
-
-                $.getJSON("timeperiod/" + timeperiods[timeperiod_idx], function (res) {
-                    update_navigation();
-                    populate_table(res);
-                }).done(format_table);
+                load_authors_in_timeperiod(timeperiods[timeperiod_idx]);
             });
         });
     </script>
