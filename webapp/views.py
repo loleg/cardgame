@@ -60,6 +60,18 @@ class AuthorAPI(MethodView):
         collection.update({u'_id': _id}, {"$set": author}, upsert=False)
         return dumps(author)
 
+    def post(self, timeperiod):
+        _db = pymongo_client[DB_NAME]
+        collection = _db[timeperiod]
+        new_entry = json.loads(request.get_data().decode())
+        entry = collection.find_one(new_entry)
+        if entry:
+            return 'author already exists {0}'.format(entry), 401
+        else:
+            return 'Inserted new Author with id {0} to collection {1}'.format(collection.insert_one(), timeperiod), 200
+
+
+
 
 class TimePeriodAPI(MethodView):
     def get(self, period):
@@ -110,8 +122,8 @@ class TimePeriodView(AbstractView):
 period_api = TimePeriodAPI.as_view('timeperiod')
 author_api = AuthorAPI.as_view('author')
 
-cards_blueprint.add_url_rule('/author_form/',
-                             view_func=FormView.as_view('form', template='author_form.html'))
+cards_blueprint.add_url_rule('/author_form/', view_func=FormView.as_view('form', template='author_form.html'))
 cards_blueprint.add_url_rule('/', view_func=TimePeriodView.as_view('index', template='index.html'))
 cards_blueprint.add_url_rule('/timeperiod/<period>/', view_func=period_api)
 cards_blueprint.add_url_rule('/<timeperiod>/<id>/', view_func=author_api)
+cards_blueprint.add_url_rule('/author/<timeperiod>/', view_func=author_api)
