@@ -90,7 +90,7 @@ class FormView(MethodView):
     def __init__(self, template):
         self.template = template
 
-    def get(self):  # , timeperiod, author_id):
+    def get(self):
         form = model_form(Author)
         return render_template(self.template, **dict(form=form(request.form)))
 
@@ -98,11 +98,12 @@ class FormView(MethodView):
 class TimePeriodView(AbstractView):
     def get_objects(self):
         schema_fields = Author()._db_field_map.values()
-        return list(schema_fields)
+        collections = get_collection_names()
+        return list(schema_fields), collections
 
     def dispatch_request(self):
-        collections = get_collection_names()
-        context = dict(titles=self.get_objects(), timeperiods=json.dumps(collections), init=collections[0])
+        titles, collections = self.get_objects()
+        context = dict(titles=titles, timeperiods=json.dumps(collections), init=collections[0])
         return self.render_template(context)
 
 
