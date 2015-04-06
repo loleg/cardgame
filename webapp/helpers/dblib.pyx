@@ -18,8 +18,9 @@ def mongo_to_dict(dict object):
     return object
 
 def get_collection_names():
-    _db = pymongo_client[DB_NAME]
+
     cdef:
+        object _db = pymongo_client[DB_NAME]
         list collection_names = _db.collection_names()
         str collection
         list result = []
@@ -30,8 +31,8 @@ def get_collection_names():
     return result
 
 def get_collection(str collection, dict projection=None):
-    _db = pymongo_client[DB_NAME]
     cdef:
+        object _db = pymongo_client[DB_NAME]
         list collections = get_collection_names()
         tuple find_args
         str _collection
