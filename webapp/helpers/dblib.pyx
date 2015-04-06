@@ -1,10 +1,6 @@
 # -*- coding:utf-8 -*-
 __author__ = u'Joël Vogt'
 
-cimport cython
-
-from pymongo.collection import Collection
-from pymongo.database import Database
 
 from webapp import pymongo_client, DB_NAME
 
@@ -47,6 +43,7 @@ def get_collection(str collection, dict projection=None):
 
         for _collection in collections:
             result[_collection] = _db[_collection].find(*find_args)
+        return result
     elif collection in collections:
         for db_object in _db[collection].find(*find_args):
             results.append(db_object)
