@@ -1,46 +1,20 @@
 # -*- coding:utf-8 -*-
 __author__ = u'Joël Vogt'
-from flask import Blueprint, jsonify, render_template, redirect, request
+
+import pyximport;
+
+pyximport.install()
+from webapp.helpers.dblib import mongo_to_dict, get_collection_names, get_collection
+
+from flask import Blueprint, render_template, request
 from flask.views import MethodView, View
 from bson.json_util import dumps, ObjectId, json
 from flask.ext.mongoengine.wtf import model_form
-from mongoengine.context_managers import switch_collection
-
 
 from webapp import pymongo_client, DB_NAME
 from webapp.models import Author
-import webapp.models
 
 cards_blueprint = Blueprint('cards', __name__, template_folder='templates')
-exclude_collections = ['system.indexes']
-
-
-def mongo_to_dict(object):
-    if '_id' in object:
-        object['_id'] = str(object['_id'])
-    return object
-
-
-def get_collection_names():
-    _db = pymongo_client[DB_NAME]
-    return list(filter(lambda x: x not in exclude_collections, _db.collection_names()))
-
-
-def get_collection(collection, projection=None):
-    _db = pymongo_client[DB_NAME]
-    results = None
-    collections = get_collection_names()
-    if projection:
-        find_args = (projection)
-    else:
-        find_args = ()
-    if collection is None or collection == 'all':
-        results = {}
-        for _collection in collections:
-            results[_collection] = _db[_collection].find(*find_args)
-    elif collection in collections:
-        results = _db[collection].find(*find_args)
-    return results
 
 
 class AuthorAPI(MethodView):
