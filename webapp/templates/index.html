@@ -2,13 +2,12 @@
 
 {% block content %}
 
-    <table data-toggle="table" data-url="timeperiod/1940 gestorben" data-cache="false" data-height="500"
-           data-card-view="true"
-           data-response-handler="responseHandler">
+    <table id="authors-table" data-card-view="false" data-timeperiods="{{ timeperiods }}"
+           data-toggle="table">
         <thead>
         <tr>
             {% for title in titles %}
-                <th data-field="{{ title }}">{{ title }}</th>
+                <th data-field="{{ title }}" data-formatter="cell_length_getter">{{ title }}</th>
             {% endfor %}
         </tr>
         </thead>
@@ -17,10 +16,104 @@
 
 {% block js_footer %}
     <script>
-        function responseHandler(res) {
-            console.log(res.timeperiod);
-            return res.timeperiod;
+
+        function cell_length_getter(value, row) {
+            var properties = JSON.parse(localStorage.getItem('properties'));
+            var col_idx = 0;
+            var cell_value = null;
+
+            for (column in row) {
+                col_idx = properties.indexOf(column);
+                if (col_idx >= 0) {
+                    cell_value = row[column];
+                    if (cell_value != null) // will be used by format_table
+                        window.columns_width[col_idx].push(cell_value.toString().length);
+                    else
+                        window.columns_width[col_idx].push(0);
+                }
+            }
+            return value;
         }
+        function format_table() {
+            var width = 0;
+            column_widths = null;
+            for (col_idx in window.columns_width) {
+                column_widths = window.columns_width[col_idx];
+                if (column_widths.length > 0) {
+                    column_widths.sort();
+                    width = math.median(column_widths);
+                    if (width > 0) {
+                        $('tr th:nth-child(' + col_idx + ')').width(width);
+                        $('tr td:nth-child(' + col_idx + ')').width(width);
+                    }
+                }
+            }
+        }
+        $(function () {
+            var timeperiod_idx = 0;
+
+            function make_table_editable() {
+                $('#authors-table').editableTableWidget();
+                $('#authors-table').editableTableWidget({
+                    cloneProperties: ['background', 'border', 'outline']
+                });
+                $('#authors-table td').on('change', function (evt, newValue) {
+                    var idx = evt.currentTarget.cellIndex;
+                    var properties = JSON.parse(localStorage.getItem('properties'));
+                    var data = [properties[idx], newValue];
+                    var timeperiod = localStorage.getItem('timeperiod');
+                    var author_id = evt.target.parentNode.id;
+                    $.ajax({
+                        method: 'PUT',
+                        url: timeperiod + '/' + author_id,
+                        data: JSON.stringify(data),
+                        dataType: 'json'
+                    });
+                });
+            }
+
+            function populate_table(res) {
+                var properties = JSON.parse(localStorage.getItem('properties'));
+                window.columns_width = [];
+                for (p_idx in properties)
+                    window.columns_width[p_idx] = [];
+
+                $('#authors-table').bootstrapTable('load', res.timeperiod).after(function () {
+                    localStorage.setItem('properties', JSON.stringify(res.properties));
+                    localStorage.setItem('timeperiod', $('#authors-table').data('timeperiods')[timeperiod_idx]);
+                    make_table_editable();
+                });
+            }
+
+            function update_navigation() {
+                var timeperiods = $('#authors-table').data('timeperiods');
+                var previous_idx = (((timeperiod_idx - 1) % timeperiods.length) + timeperiods.length) % timeperiods.length;
+                var next_idx = (timeperiod_idx + 1) % timeperiods.length;
+                $('#previous').text($('#authors-table').data('timeperiods')[previous_idx]);
+                $('#current').text($('#authors-table').data('timeperiods')[timeperiod_idx]);
+                $('#next').text($('#authors-table').data('timeperiods')[next_idx]);
+            }
+
+            function load_authors_in_timeperiod(timeperiod) {
+                $.getJSON("timeperiod/" + timeperiod, function (res) {
+                    update_navigation();
+                    populate_table(res);
+                });
+            }
+
+            load_authors_in_timeperiod($('#authors-table').data('timeperiods')[timeperiod_idx]);
+
+            $('#timeperiod_navigation').click(function (e) {
+                var timeperiods = $('#authors-table').data('timeperiods');
+                if (e.target.id === 'next') {
+                    timeperiod_idx = (timeperiod_idx + 1) % timeperiods.length;
+                }
+                if (e.target.id === 'previous') {
+                    timeperiod_idx = (((timeperiod_idx - 1) % timeperiods.length) + timeperiods.length) % timeperiods.length;
+                }
+                load_authors_in_timeperiod(timeperiods[timeperiod_idx]);
+            });
+        });
     </script>
 
 {% endblock %}

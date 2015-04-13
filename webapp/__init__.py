@@ -4,15 +4,18 @@ __author__ = u'Joël Vogt'
 from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from pymongo import MongoClient
+import os
 
-DB_NAME = 'cardgame'
+DB_NAME = 'publicdomaingame'
+HOST = os.environ['MONGOLAB_URI']
+
 app = Flask(__name__)
-app.config["MONGODB_SETTINGS"] = {'DB': DB_NAME}
+app.config["MONGODB_SETTINGS"] = {'host': HOST}
 app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
 db = MongoEngine(app)
 
-pymongo_client = MongoClient()
+pymongo_client = MongoClient(host=HOST)
 
 
 def register_blueprints(app):

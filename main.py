@@ -1,4 +1,4 @@
-#!/Users/joelvogt/PyCharmProjects/citizenscience.coop/flask/bin/python
+
 
 import os, sys
 
@@ -11,10 +11,8 @@ manager = Manager(app)
 
 # Turn on debugger by default and reloader
 manager.add_command("runserver", Server(
-    use_debugger=True,
-    use_reloader=True,
-    host='0.0.0.0',
-    port=8080)
+    use_debugger=False,
+    use_reloader=False)
 )
 
 if __name__ == "__main__":

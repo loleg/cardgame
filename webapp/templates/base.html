@@ -2,33 +2,58 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title></title>
     <!-- Latest compiled and minified CSS -->
 
+    <!-- Latest compiled and minified CSS -->
 
-    <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}"
-          rel="stylesheet"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-    <link href="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.css') }}"
-          rel="stylesheet"/>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="static/css/pdgstyle.css">
 
 </head>
 <body>
+<div id="timeperiod_navigation" class="btn-group btn-group-justified" role="group" aria-label="foo">
+    <div class="btn-group" role="group">
+        <button id="previous" type="button" class="btn btn-default">Previous</button>
+    </div>
+    <div class="btn-group" role="group">
+        <button id="current" type="button" class="btn btn-default">Current</button>
+    </div>
+    <div class="btn-group" role="group">
+        <button id='next' type="button" class="btn btn-default">Next</button>
+    </div>
+</div>
+<div class="container-fluid"></div>
+<div class="row">
+    <div class="col-md-1 ">
+    </div>
 
-{% block content %}{% endblock %}
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='bower_components/jquery-ui/ui/core.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/widget.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/jquery-ui/ui/accordion.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='bower_components/bootstrap-table/dist/bootstrap-table.min.js') }}"></script>
+    <div class="col-md-11 ">
 
+    {% block content %}{% endblock %}
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.js"></script>
+
+
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap-editable/js/bootstrap-editable.min.js"></script>#}
+<script type="text/javascript" src="{{ url_for('static', filename='js/mindmup-editabletable.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/1.5.0/math.min.js"></script>
 
 {% block js_footer %}{% endblock %}
 </body>
